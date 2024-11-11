@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mariadb:latest
+    container_name: my_mariadb_server
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=2020!
+      - MYSQL_DATABASE=desafio_umbler
+    volumes:
+      - ./data:/var/lib/mysql
