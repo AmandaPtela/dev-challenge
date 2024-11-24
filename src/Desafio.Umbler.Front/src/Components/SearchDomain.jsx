@@ -7,7 +7,7 @@ export default function Search() {
     function handleValue(value) {
         const regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$/
 
-        if (value.length === 1 || !regex.test(value)) {
+        if (!value.length === 0 || !regex.test(value)) {
             return setValid(false);
         };
         setValid(true);
@@ -20,7 +20,6 @@ export default function Search() {
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
-                width: "320px",
                 paddingLeft: "9px"
             }}
         >
@@ -29,18 +28,19 @@ export default function Search() {
                     display: "flex",
                     justifyContent: "space-around",
                     width: "100%",
+                    color: "#343F3E",
                 }}
             >
                 <input
                     type="text"
                     onChange={({ target }) => handleValue(target.value)}
                     style={{
-                        color: "#343434",
                         width: "75%",
                         borderRadius: "0.5em",
                         border: "solid 0.15rem #808080",
                         paddingLeft: "5px",
-                        fontSize: "large"
+                        fontSize: "large",
+                        color: "#343F3E",
                     }}
                 />
                 <button
@@ -48,9 +48,13 @@ export default function Search() {
                     style={{
                         borderRadius: "0.5em",
                         border: "none",
-                        height: "28px",
-                        backgroundColor: "pink",
-                        fontSize: "medium"
+                        outline: "none",
+                        height: "50px",
+                        width: "100px",
+                        backgroundColor: "#BFB48F",
+                        fontSize: "medium",
+                        fontWeight: "600",
+                        color: "#343F3E",
                     }}
                 >
                     Buscar
@@ -58,7 +62,7 @@ export default function Search() {
             </div>
             <span
                 style={{
-                    paddingLeft: "17px",
+                    paddingLeft: "20px",
                     color: "red",
                     fontSize: "smaller"
                 }}

@@ -3,9 +3,9 @@ import SearchDomain from "../Components/SearchDomain";
 
 export default function Home() {
     return (
-        <main style={{ display: "flex", height: "100vh", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+        <main style={{ backgroundColor: "#F2EFE9", color: "#343F3E", display: "flex", height: "100vh", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
             <section style={{ height: "30%", width: "50%" }}>
-                <h1 style={{color: "grey" }}>Try a domain!</h1>
+                <h1 style={{ fontWeight: "700" }}>Try a domain!</h1>
                 <SearchDomain />
             </section>
             <section style={{ width: "58%" }}>
