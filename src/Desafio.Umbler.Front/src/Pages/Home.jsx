@@ -7,7 +7,7 @@ export default function Home() {
             <header>
                 <p>Try a domain!</p>
             </header>
-            <main>
+            <main style={{ display: "flex", justifyContent: "center"}}>
                 <SearchDomain />
             </main>
         </>
