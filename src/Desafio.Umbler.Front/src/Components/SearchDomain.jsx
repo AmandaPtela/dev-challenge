@@ -25,6 +25,9 @@ export default function Search() {
             >
                 Buscar
             </button>
+            <span>
+                {!valid && "Domínio inválido"}
+            </span>
         </main>
     )
 };
