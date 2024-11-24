@@ -8,6 +8,16 @@ export default function Search() {
     }
 
     return (
-        <input type="text" onChange={({ target }) => handleValue(target.value)}/>
+        <main>
+            <input
+                type="text"
+                onChange={({ target }) => handleValue(target.value)}
+            />
+            <button
+                type="submit"
+            >
+                Buscar
+            </button>
+        </main>
     )
 };
