@@ -3,13 +3,17 @@ import SearchDomain from "../Components/SearchDomain";
 
 export default function Home() {
     return (
-        <>
-            <header>
-                <p>Try a domain!</p>
-            </header>
-            <main style={{ display: "flex", justifyContent: "center"}}>
+        <main style={{ display: "flex", height: "100vh", justifyContent: "center", flexDirection: "column", alignItems: "center" }}>
+            <section style={{ height: "30%", width: "50%" }}>
+                <h1 style={{color: "grey" }}>Try a domain!</h1>
                 <SearchDomain />
-            </main>
-        </>
+            </section>
+            <section style={{ width: "58%" }}>
+                <p> O domínio é um endereço que os usuários podem digitar no navegador para acessar uma página na internet.
+                    Um domínio pode ter várias extensões como <b>.com</b>, <b>.org</b>, <b>.edu</b>, <b>.gov</b> entre outros.
+                </p>
+            </section>
+        </main>
+
     );
 };
