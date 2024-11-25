@@ -1,0 +1,40 @@
+#searchArea {
+    color: #343F3E;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+#mainSearchComponent {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    padding-left: 9px;
+}
+
+#searchInput {
+    border-radius: 0.5em;
+    border: solid 0.15rem #808080;
+    color: #343F3E;
+    font-size: large;
+    padding-left: 5px;
+    width: 75%;
+}
+
+#inputInforation {
+    color: red;
+    font-size: smaller;
+    padding-left: 20px;
+}
+
+#searchButton {
+    background-color: #BFB48F;
+    border-radius: 0.5em;
+    border: none;
+    color: #343F3E;
+    font-size: medium;
+    font-weight: 600;
+    height: 50px;
+    outline: none;
+    width: 100px;
+}

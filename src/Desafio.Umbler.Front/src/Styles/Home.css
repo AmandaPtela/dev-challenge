@@ -1,0 +1,23 @@
+#mainHomePage {
+    align-items: center;
+    background-color: #F2EFE9;
+    color: #343F3E;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+
+#mainSearchArea {
+    height: 25%;
+    width: 50%;
+}
+
+#mainTitle {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+#infoArea {
+    width: 58%;
+}

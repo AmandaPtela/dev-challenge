@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../Styles/SearchDomain.css";
 
 export default function Search() {
     const [domain, setDomain] = useState("");
@@ -15,58 +16,21 @@ export default function Search() {
     }
 
     return (
-        <main
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                paddingLeft: "9px"
-            }}
-        >
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-around",
-                    width: "100%",
-                    color: "#343F3E",
-                }}
-            >
+        <main id="mainSearchComponent" >
+            <div id="searchArea">
                 <input
                     type="text"
                     onChange={({ target }) => handleValue(target.value)}
-                    style={{
-                        width: "75%",
-                        borderRadius: "0.5em",
-                        border: "solid 0.15rem #808080",
-                        paddingLeft: "5px",
-                        fontSize: "large",
-                        color: "#343F3E",
-                    }}
+                    id="searchInput"
                 />
                 <button
                     type="submit"
-                    style={{
-                        borderRadius: "0.5em",
-                        border: "none",
-                        outline: "none",
-                        height: "50px",
-                        width: "100px",
-                        backgroundColor: "#BFB48F",
-                        fontSize: "medium",
-                        fontWeight: "600",
-                        color: "#343F3E",
-                    }}
+                    id="searchButton"
                 >
                     Buscar
                 </button>
             </div>
-            <span
-                style={{
-                    paddingLeft: "20px",
-                    color: "red",
-                    fontSize: "smaller"
-                }}
-            >
+            <span id="inputInformation" >
                 {!valid && "Domínio inválido"}
             </span>
         </main>
