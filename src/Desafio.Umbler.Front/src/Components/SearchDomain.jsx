@@ -17,6 +17,15 @@ export default function Search() {
         setDomain(value);
     }
 
+    function searchInfo() {
+        //Fazer requisição pra api
+        //api.get, api.post...
+        //retornar informações 
+        // ou 
+        // retornar erro (caso houver);
+        console.log(domain);
+    }
+
     return (
         <main id="mainSearchComponent" >
             <div id="searchArea">
@@ -29,6 +38,7 @@ export default function Search() {
                 <button
                     type="submit"
                     id="searchButton"
+                    onClick={() => searchInfo()}
                 >
                     Buscar
                 </button>
