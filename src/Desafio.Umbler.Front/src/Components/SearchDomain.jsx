@@ -5,6 +5,8 @@ export default function Search() {
     const [domain, setDomain] = useState("");
     let [valid, setValid] = useState(true);
 
+    const INPUT_MAX_LENGTH = 50;
+
     function handleValue(value) {
         const regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$/
 
@@ -22,6 +24,7 @@ export default function Search() {
                     type="text"
                     onChange={({ target }) => handleValue(target.value)}
                     id="searchInput"
+                    maxLength={INPUT_MAX_LENGTH}
                 />
                 <button
                     type="submit"
