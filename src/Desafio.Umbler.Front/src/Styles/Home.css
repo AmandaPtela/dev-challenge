@@ -9,6 +9,9 @@
 }
 
 #mainSearchArea {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
     height: 25%;
     width: 50%;
 }
@@ -16,6 +19,25 @@
 #mainTitle {
     font-size: 30px;
     font-weight: 700;
+    width: 36%;
+    text-align: left;
+}
+
+#dotCom {
+    font-size: 30px;
+    font-weight: 700;
+    animation: completeLine infinite reverse 1510ms;
+    width: 300px;
+    text-align: center;
+}
+
+@keyframes completeLine {
+    from {
+        color: #343F3E;
+    }
+    to {
+        color: #F2EFE9;
+    }
 }
 
 #infoArea {

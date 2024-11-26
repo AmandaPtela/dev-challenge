@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchDomain from "../Components/SearchDomain";
 import "../Styles/Home.css";
+import { useEffect } from "react";
 
 export default function Home() {
+    let [indexState, setIndex] = useState(0);
+    const extensions = [".com", ".net", ".org", ".edu"];
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex(prevIndex => (prevIndex + 1) % extensions.length);
+        }, 1510);
+
+        return () => clearInterval(interval);
+    }, [extensions.length]);
+
     return (
         <main id="mainHomePage">
             <section id="mainSearchArea">
-                <h1 id="mainTitle">Try a domain.com </h1>
+            <h1 id="mainTitle">Try a domain<span id="dotCom">{extensions[indexState]}</span> </h1>
                 <SearchDomain />
             </section>
             <section id="infoArea">
