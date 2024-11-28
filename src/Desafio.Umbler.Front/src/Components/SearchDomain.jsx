@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { domainContext } from "../Context/Provider";
 import "../Styles/SearchDomain.css";
+import DomainDetails from "./DomainDetails";
 
 export default function Search() {
+    let { domainName, setDomainName } = useContext(domainContext);
     const [domain, setDomain] = useState("");
     let [valid, setValid] = useState(true);
 
@@ -23,7 +27,7 @@ export default function Search() {
         //retornar informações 
         // ou 
         // retornar erro (caso houver);
-        console.log(domain);
+        setDomainName(domain)
     }
 
     return (
@@ -40,12 +44,14 @@ export default function Search() {
                     id="searchButton"
                     onClick={() => searchInfo()}
                 >
-                    Buscar
+                    <Link to="/domain/info">
+                        Buscar
+                    </Link>
                 </button>
             </div>
             <span id="inputInformation" >
                 {!valid && "Domínio inválido"}
             </span>
-        </main>
+        </main >
     )
 };
