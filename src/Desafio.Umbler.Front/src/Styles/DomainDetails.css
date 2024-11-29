@@ -1,0 +1,38 @@
+#mainDetailsPage {
+    align-items: center;
+    background-color: #F2EFE9;
+    color: #343F3E;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+}
+
+table {
+    border: solid 0.1ch grey;
+    width: 70%;
+    text-align: left;
+    padding: 0 0 0 10px;
+}
+
+.key {
+    width: 15%;
+    font-size: larger;
+}
+
+.value {
+    width: 80%;
+    font-size: larger;
+}
+
+#backButton {
+    background-color: #BFB48F;
+    border-radius: 0.5em;
+    border: none;
+    color: #343F3E;
+    font-size: medium;
+    font-weight: 500;
+    height: 40px;
+    outline: none;
+    width: 90px;
+}
