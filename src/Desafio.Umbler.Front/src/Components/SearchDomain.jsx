@@ -2,10 +2,9 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { domainContext } from "../Context/Provider";
 import "../Styles/SearchDomain.css";
-import DomainDetails from "./DomainDetails";
 
 export default function Search() {
-    let { domainName, setDomainName } = useContext(domainContext);
+    let { setDomainName } = useContext(domainContext);
     const [domain, setDomain] = useState("");
     let [valid, setValid] = useState(true);
 
@@ -22,16 +21,11 @@ export default function Search() {
     }
 
     function searchInfo() {
-        //Fazer requisição pra api
-        //api.get, api.post...
-        //retornar informações 
-        // ou 
-        // retornar erro (caso houver);
         setDomainName(domain)
     }
 
     return (
-        <main id="mainSearchComponent" >
+        <main id="mainSearchComponent">
             <div id="searchArea">
                 <input
                     type="text"
