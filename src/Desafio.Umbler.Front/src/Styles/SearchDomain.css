@@ -1,15 +1,14 @@
-#searchArea {
-    color: #343F3E;
+#mainSearchComponent {
+    align-items: center;
     display: flex;
-    justify-content: space-around;
+    flex-direction: column;
     width: 100%;
 }
 
-#mainSearchComponent {
-    align-items: flex-start;
+#searchArea {
+    color: #343F3E;
     display: flex;
-    flex-direction: column;
-    padding-left: 9px;
+    justify-content: space-evenly;
     width: 100%;
 }
 
@@ -43,4 +42,9 @@
 #searchButton:hover {
     transform: scale(1.1);
     transition: 0.2s;
+}
+
+a {
+    text-decoration: none;
+    color: #343F3E;
 }
