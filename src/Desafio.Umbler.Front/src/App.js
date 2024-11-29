@@ -9,7 +9,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path="/" Component={Home} />
-          <Route path="/domain/info" Component={DomainDetails} />
+          <Route path="api/domain/:domain" Component={DomainDetails} />
         </Routes>
       </BrowserRouter>        
     </div>
