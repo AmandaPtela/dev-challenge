@@ -1,6 +1,9 @@
 import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { domainContext } from "../Context/Provider";
+
+import { getDomain } from "../Service/api";
+
 import "../Styles/SearchDomain.css";
 
 export default function Search() {
@@ -21,6 +24,7 @@ export default function Search() {
     }
 
     function searchInfo() {
+        getDomain(domain);
         setDomainName(domain)
     }
 
@@ -38,7 +42,7 @@ export default function Search() {
                     id="searchButton"
                     onClick={() => searchInfo()}
                 >
-                    <Link to="/domain/info">
+                    <Link to={`api/domain/${domain}`}>
                         Buscar
                     </Link>
                 </button>
