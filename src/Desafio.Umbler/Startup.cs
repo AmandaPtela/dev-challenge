@@ -1,10 +1,13 @@
 ﻿using System;
+using System.IO;
 using Desafio.Umbler.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -51,13 +54,32 @@ namespace Desafio.Umbler
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSpa(spa =>
+            {
+                spa.Options.SourcePath = "Desafio.Umbler.Front";
+                spa.UseReactDevelopmentServer(npmScript: "start");
+            });
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
 
+
             app.UseStaticFiles();
+
+            app.UseSpaStaticFiles();
+
+
+            app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "Desafio.Umbler.Front";
+                    if (!env.IsDevelopment())
+                    {
+                        spa.Options.DefaultPage = "/index.html";
+                    }
+                });
+
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -66,6 +88,15 @@ namespace Desafio.Umbler
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+
+             app.UseSpa(spa =>
+        {
+            spa.Options.SourcePath = "Desafio.Umbler.Front";
+            if (!env.IsDevelopment())
+            {
+                spa.Options.DefaultPage = "/index.html";
+            }
+        });
         }
     }
 }
