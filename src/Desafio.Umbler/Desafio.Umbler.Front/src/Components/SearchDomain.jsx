@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { domainContext } from "../Context/Provider";
 
-import { getDomain } from "../Service/api";
+import { api } from "../Service/api";
 
 import "../Styles/SearchDomain.css";
 
@@ -24,7 +24,7 @@ export default function Search() {
     }
 
     function searchInfo() {
-        getDomain(domain);
+        api.getDomain(domain);
         setDomainName(domain)
     }
 
