@@ -62,6 +62,18 @@ export default function DomainDetails() {
                 </tbody>
             </table>
             <p>WhoIs: </p>
+            { loadingToRender
+            ?   <p>Loading...</p>
+            :
+                <table>
+                    <tbody>
+                        <tr>
+                            <td className="key">Domain:</td>
+                            <td className="value">{whoIsData.Domain_Name}</td>
+                        </tr>
+                    </tbody>
+                </table>
+        }
         </main>
     )
 };
