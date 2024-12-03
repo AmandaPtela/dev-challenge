@@ -2,8 +2,6 @@ import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { domainContext } from "../Context/Provider";
 
-import { api } from "../Service/api";
-
 import "../Styles/SearchDomain.css";
 
 export default function Search() {
@@ -24,8 +22,7 @@ export default function Search() {
     }
 
     function searchInfo() {
-        api.getDomain(domain);
-        setDomainName(domain)
+        setDomainName(domain);
     }
 
     return (
