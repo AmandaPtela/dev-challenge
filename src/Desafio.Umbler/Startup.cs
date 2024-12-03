@@ -44,59 +44,46 @@ namespace Desafio.Umbler
                         .EnableDetailedErrors()
                 );
 
-
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+            public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+            {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = "Desafio.Umbler.Front";
-                spa.UseReactDevelopmentServer(npmScript: "start");
-            });
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
 
-
-            app.UseStaticFiles();
-
-            app.UseSpaStaticFiles();
-
-
-            app.UseSpa(spa =>
-                {
-                    spa.Options.SourcePath = "Desafio.Umbler.Front";
-                    if (!env.IsDevelopment())
-                    {
-                        spa.Options.DefaultPage = "/index.html";
-                    }
-                });
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
+                {
+                    endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-            });
 
-             app.UseSpa(spa =>
-        {
-            spa.Options.SourcePath = "Desafio.Umbler.Front";
-            if (!env.IsDevelopment())
+                    endpoints.MapControllerRoute(
+                    name: "searchDomain",
+                    pattern: "{controller=Domain}/{action=Get}/{domainName?}");
+                });
+
+            app.UseStaticFiles();
+            app.UseSpaStaticFiles();
+
+            app.UseSpa(spa =>
             {
+                spa.Options.SourcePath = "Desafio.Umbler.Front"; 
+
+            if (env.IsDevelopment())
+                spa.UseReactDevelopmentServer(npmScript: "start");
+            else
                 spa.Options.DefaultPage = "/index.html";
-            }
-        });
+            });
         }
     }
 }
