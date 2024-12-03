@@ -6,12 +6,12 @@ namespace Desafio.Umbler.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult domain()
         {
-            return View();
-        }     
+         return View();
+        } 
 
-        public IActionResult Error()
+    public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
