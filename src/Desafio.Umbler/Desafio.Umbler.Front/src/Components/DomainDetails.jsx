@@ -1,11 +1,23 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { domainContext } from "../Context/Provider";
+import { getDomain } from "../Service/api";
 
 import SearchDomain from "../Components/SearchDomain";
 import "../Styles/DomainDetails.css";
 
 export default function DomainDetails() {
     const { domainName } = useContext(domainContext);
+    let [data, setData] = useState([])
+    
+    useEffect(() => {
+        fetch(`/api/domain/${domainName}`)
+            .then(response => response.json())
+            .then(data => setData(data))
+            .catch(error => console.error("Erro ao buscar dados do domínio:", error));
+    }, [domainName]);
+
+    const chaves = Object.entries(data).filter((e) => !e.includes("whoIs"));
+    const whoIs = Object.entries(data).filter((e) => e.includes("whoIs"));
 
     return (
         <main id="mainDetailsPage">
