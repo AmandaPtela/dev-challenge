@@ -6,12 +6,14 @@ using Desafio.Umbler.Models;
 using Whois.NET;
 using Microsoft.EntityFrameworkCore;
 using DnsClient;
+using Desafio.Umbler.Services;
 
 namespace Desafio.Umbler.Controllers
 {
     [Route("api")]
     public class DomainController : Controller
     {
+        public DomainServices DomainServices = new DomainServices();
         private readonly DatabaseContext _db;
 
         public DomainController(DatabaseContext db)
@@ -20,8 +22,10 @@ namespace Desafio.Umbler.Controllers
         }
 
         [HttpGet, Route("domain/{domainName}")]
+
         public async Task<IActionResult> Get(string domainName)
         {
+            DomainServices.DomainValidation(domainName);
             var domain = await _db.Domains.FirstOrDefaultAsync(d => d.Name == domainName);
 
             if (domain == null)
