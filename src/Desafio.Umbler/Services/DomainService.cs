@@ -11,7 +11,7 @@ namespace Desafio.Umbler.ViewModel
 {
     public class DomainViewModel
     {
-        private DatabaseRepository _DatabaseRepository; /* PAREI AQUI NO PARAMETRO */
+        private DatabaseRepository _DatabaseRepository;
         public bool DomainValidation(string domain)
         {
             string pattern = @"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$";
