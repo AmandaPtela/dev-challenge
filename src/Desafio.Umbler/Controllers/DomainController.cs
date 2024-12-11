@@ -9,13 +9,13 @@ namespace Desafio.Umbler.Controllers
     [Route("api")]
     public class DomainController : Controller
     {
-        public DomainViewModel DomainViewModel = new DomainViewModel();
+        public DomainViewModel DomainViewModel;
 
         [HttpGet, Route("domain/{domainName}")]
 
         public async Task<IActionResult> Get(string domainName)
         {
-            var result = await DomainViewModel.DomainValidation(domainName);
+            var result = await DomainViewModel.DomainRequest(domainName);
 
            return Ok(result);
     }
