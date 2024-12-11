@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Desafio.Umbler.Models;
 using Desafio.Umbler.DatabaseRepo;
+using Desafio.Umbler.Models;
 
 namespace Desafio.Umbler.ViewModel
 {
     public class DomainViewModel
     {
-        private readonly DatabaseRepository DatabaseRepository = new DatabaseRepository(DatabaseContext); /* PAREI AQUI NO PARAMETRO */
+        private DatabaseRepository _DatabaseRepository; /* PAREI AQUI NO PARAMETRO */
         public bool DomainValidation(string domain)
         {
             string pattern = @"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$";
@@ -22,10 +22,11 @@ namespace Desafio.Umbler.ViewModel
 
         public async Task<Domain> DomainRequest(string domainName)
         {
-            var domain = await DatabaseRepository.GetDomain(domainName);
+
+            var domain = await _DatabaseRepository.GetDomain(domainName);
 
             if (domain == null)
-                DatabaseRepository.AddDomain(domainName);
+                _DatabaseRepository.AddDomain(domainName);
 
             if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
             {
@@ -46,7 +47,7 @@ namespace Desafio.Umbler.ViewModel
                 domain.Ttl = record?.TimeToLive ?? 0;
                 domain.HostedAt = hostResponse.OrganizationName;
             }
-            DatabaseRepository.SaveChangesAsync();
+            _DatabaseRepository.SaveChangesAsync();
             return domain;
         }
         }
