@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
-using Desafio.Umbler.Models;
 using System.Threading.Tasks;
 using DnsClient;
 using Whois.NET;
 using Microsoft.EntityFrameworkCore;
+using Desafio.Umbler.Models;
 
 namespace Desafio.Umbler.DatabaseRepo;
 public class DatabaseRepository
@@ -21,8 +21,9 @@ public class DatabaseRepository
         return await _db.Domains.FirstOrDefaultAsync(d => d.Name == domainName);
     }
 
-    public async Task<Domain> AddDomain(string domainNAme)
+    public async Task<Domain> AddDomain(string domainName)
     {
+        var domain = null;
         var response = await WhoisClient.QueryAsync(domainName);
         var lookup = new LookupClient();
         var result = await lookup.QueryAsync(domainName, QueryType.ANY);
