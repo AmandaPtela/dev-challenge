@@ -9,7 +9,7 @@ namespace Desafio.Umbler.Controllers
     [Route("api")]
     public class DomainController : Controller
     {
-        public DomainViewModel DomainViewModel;
+        public DomainViewModel DomainViewModel = new DomainViewModel();
 
         [HttpGet, Route("domain/{domainName}")]
 
