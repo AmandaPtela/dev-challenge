@@ -22,33 +22,19 @@ namespace Desafio.Umbler.ViewModel
 
         public async Task<Domain> DomainRequest(string domainName)
         {
-
             var domain = await _DatabaseRepository.GetDomain(domainName);
 
             if (domain == null)
-                _DatabaseRepository.AddDomain(domainName);
+            {
+                return await _DatabaseRepository.AddDomain(domainName);
+            }
 
             if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
             {
-                var response = await WhoisClient.QueryAsync(domainName);
-
-                var lookup = new LookupClient();
-                var result = await lookup.QueryAsync(domainName, QueryType.ANY);
-                var record = result.Answers.ARecords().FirstOrDefault();
-                var address = record?.Address;
-                var ip = address?.ToString();
-
-                var hostResponse = await WhoisClient.QueryAsync(ip);
-
-                domain.Name = domainName;
-                domain.Ip = ip;
-                domain.UpdatedAt = DateTime.Now;
-                domain.WhoIs = response.Raw;
-                domain.Ttl = record?.TimeToLive ?? 0;
-                domain.HostedAt = hostResponse.OrganizationName;
+                return await _DatabaseRepository.VerifyTtl(domainName);
             }
-            _DatabaseRepository.SaveChangesAsync();
+            await _DatabaseRepository.SaveChangesAsync();
             return domain;
         }
-        }
     }
+}
