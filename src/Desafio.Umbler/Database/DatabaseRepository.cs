@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DnsClient;
 using Whois.NET;
+using System.Text.RegularExpressions;
 using Microsoft.EntityFrameworkCore;
 using Desafio.Umbler.Models;
 
@@ -17,7 +18,9 @@ public class DatabaseRepository
 
     public async Task<Domain> GetDomain(string domainName)
     {
-        return await _db.Domains.FirstOrDefaultAsync(d => d.Name == domainName);
+        string pattern = @"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$";
+        bool valid = Regex.IsMatch(domainName, pattern);
+        return valid ? await _db.Domains.FirstOrDefaultAsync(d => d.Name == domainName) : throw new ArgumentException("Invalid domain");
     }
 
     public async Task<Domain> AddDomain(string domainName)
