@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Desafio.Umbler.Models;
+using Desafio.Umbler.ViewModel;
 
 namespace Desafio.Umbler.Controllers
 {
@@ -8,7 +9,7 @@ namespace Desafio.Umbler.Controllers
     {
         public IActionResult domain()
         {
-         return View();
+         return View(domain);
         } 
 
     public IActionResult Error()
