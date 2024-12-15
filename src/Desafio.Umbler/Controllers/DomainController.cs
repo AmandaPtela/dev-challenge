@@ -27,12 +27,12 @@ namespace Desafio.Umbler.Controllers
 
             if (domain == null)
             {
-                return await _DatabaseRepository.AddDomain(domainName);
+                await _DatabaseRepository.AddDomain(domainName);
             }
 
             if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
             {
-                return await _DatabaseRepository.VerifyTtl(domainName);
+                await _DatabaseRepository.VerifyTtl(domainName);
             }
 
             var ViewModelReturn = new DomainViewModel
