@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Desafio.Umbler.ViewModel;
@@ -21,14 +20,6 @@ namespace Desafio.Umbler.Controllers
         }
 
         [HttpGet, Route("domain/{domainName}")]
-
-        public bool DomainValidation(string domainName)
-        {
-            string pattern = @"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$";
-            bool valid = Regex.IsMatch(domainName, pattern);
-
-            return valid;
-        }
 
         public async Task<IActionResult> Get(string domainName)
         {
