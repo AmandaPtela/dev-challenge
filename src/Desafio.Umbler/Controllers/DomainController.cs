@@ -45,11 +45,9 @@ namespace Desafio.Umbler.Controllers
 
             };
 
-            Console.WriteLine(ViewModelReturn);
-
             await _DatabaseRepository.SaveChangesAsync();
 
-            return Ok(ViewModelReturn);
+            return BadRequest(ViewModelReturn);
         }
     }
 }
