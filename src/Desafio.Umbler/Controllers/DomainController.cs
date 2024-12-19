@@ -6,6 +6,8 @@ using Microsoft.EntityFrameworkCore;
 using Desafio.Umbler.ViewModel;
 using Desafio.Umbler.Models;
 using Desafio.Umbler.DatabaseRepo;
+using Desafio.Umbler.Validator;
+using FluentValidation;
 
 namespace Desafio.Umbler.Controllers
 {
@@ -20,10 +22,20 @@ namespace Desafio.Umbler.Controllers
         }
 
         [HttpGet, Route("domain/{domainName}")]
-
         public async Task<IActionResult> Get(string domainName)
         {
             var _DatabaseRepository = new DatabaseRepository(_db);
+            var validation = new DomainValidator();
+            var results = validation.Validate(domainName);
+            if (!results.IsValid)
+            {
+                foreach (var failure in results.Errors)
+                {
+                    Console.WriteLine("Failed validation. Error: " + failure.ErrorMessage);
+                }
+                    //return RedirectToAction("Error");
+                    return BadRequest();
+            }
             var domain = await _DatabaseRepository.GetDomain(domainName);
 
             if (domain == null)
@@ -36,6 +48,8 @@ namespace Desafio.Umbler.Controllers
                 await _DatabaseRepository.VerifyTtl(domainName);
             }
 
+            /*             var WhoIs = domain.WhoIs.split("\n"); */
+
             var ViewModelReturn = new DomainViewModel
             {
                 Name = domain.Name,
@@ -47,7 +61,7 @@ namespace Desafio.Umbler.Controllers
 
             await _DatabaseRepository.SaveChangesAsync();
 
-            return BadRequest(ViewModelReturn);
+            return Ok(ViewModelReturn);
         }
     }
 }
