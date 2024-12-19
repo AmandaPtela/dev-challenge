@@ -18,7 +18,7 @@ public class DatabaseRepository
 
     public async Task<Domain> GetDomain(string domainName)
     {
-        return await _db.Domains.FirstOrDefaultAsync(d => d.Name == domainName) : throw new ArgumentException("Invalid domain");
+        return await _db.Domains.FirstOrDefaultAsync(d => d.Name == domainName);
     }
 
     public async Task<Domain> AddDomain(string domainName)
