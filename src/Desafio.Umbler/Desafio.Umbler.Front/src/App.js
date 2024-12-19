@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
 import Home from "./Pages/Home";
+import ErrorPage from "./Pages/Error";
 import DomainDetails from "./Components/DomainDetails";
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
         <Routes>
           <Route exact path="/" Component={Home} />
           <Route path="api/domain/:domain" Component={DomainDetails} />
+          <Route exact path="/error" Component={ErrorPage} />
         </Routes>
       </BrowserRouter>        
     </div>
