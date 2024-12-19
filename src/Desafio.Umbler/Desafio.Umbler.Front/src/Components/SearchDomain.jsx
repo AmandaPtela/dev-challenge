@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { domainContext } from "../Context/Provider";
 
 import "../Styles/SearchDomain.css";
@@ -10,6 +10,7 @@ export default function Search() {
     let [valid, setValid] = useState(true);
 
     const INPUT_MAX_LENGTH = 50;
+    const navigate = useNavigate();
 
     function handleValue(value) {
         const regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$/
@@ -22,7 +23,12 @@ export default function Search() {
     }
 
     function searchInfo() {
-        setDomainName(domain);
+        if (valid) {
+            setDomainName(domain);
+            
+            return navigate(`api/domain/${domain}`);
+        };
+        throw new Error("Domínio Inválido");
     }
 
     return (
@@ -39,9 +45,7 @@ export default function Search() {
                     id="searchButton"
                     onClick={() => searchInfo()}
                 >
-                    <Link to={`api/domain/${domain}`}>
-                        Buscar
-                    </Link>
+                    Buscar
                 </button>
             </div>
             <span id="inputInformation" >
