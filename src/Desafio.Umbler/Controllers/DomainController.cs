@@ -26,42 +26,50 @@ namespace Desafio.Umbler.Controllers
         {
             var _DatabaseRepository = new DatabaseRepository(_db);
             var validation = new DomainValidator();
-            var results = validation.Validate(domainName);
-            if (!results.IsValid)
-            {
-                foreach (var failure in results.Errors)
+            var results = validation.Validate("");
+            var errors = results.Errors;
+            try {
+                if (!results.IsValid)
                 {
-                    Console.WriteLine("Failed validation. Error: " + failure.ErrorMessage);
-                }
-                    //return RedirectToAction("Error");
+                    foreach (var failure in results.Errors)
+                    {
+                        Console.WriteLine("Failed validation. Error: " + failure.ErrorMessage);
+                    }
                     return BadRequest();
+                }
+                var domain = await _DatabaseRepository.GetDomain(domainName);
+
+                if (domain == null)
+                {
+                    await _DatabaseRepository.AddDomain(domainName);
+                }
+
+                if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
+                {
+                    await _DatabaseRepository.VerifyTtl(domainName);
+                }
+
+                /*             var WhoIs = domain.WhoIs.split("\n"); */
+
+                var ViewModelReturn = new DomainViewModel
+                {
+                    Name = domain.Name,
+                    Ip = domain.Ip,
+                    WhoIs = domain.WhoIs,
+                    HostedAt = domain.HostedAt,
+
+                };
+
+                await _DatabaseRepository.SaveChangesAsync();
+
+                return Ok(ViewModelReturn);
             }
-            var domain = await _DatabaseRepository.GetDomain(domainName);
+            catch(Exception ex) {
+                Console.WriteLine($"Erroooo: {ex.Message}");
 
-            if (domain == null)
-            {
-                await _DatabaseRepository.AddDomain(domainName);
+                // Redireciona para página de erro
+                return NotFound();
             }
-
-            if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
-            {
-                await _DatabaseRepository.VerifyTtl(domainName);
-            }
-
-            /*             var WhoIs = domain.WhoIs.split("\n"); */
-
-            var ViewModelReturn = new DomainViewModel
-            {
-                Name = domain.Name,
-                Ip = domain.Ip,
-                WhoIs = domain.WhoIs,
-                HostedAt = domain.HostedAt,
-
-            };
-
-            await _DatabaseRepository.SaveChangesAsync();
-
-            return Ok(ViewModelReturn);
         }
     }
 }
