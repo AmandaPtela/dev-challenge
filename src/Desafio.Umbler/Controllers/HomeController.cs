@@ -12,9 +12,14 @@ namespace Desafio.Umbler.Controllers
          return View(domain);
         } 
 
-    public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+    public IActionResult Error(string Message)
+{
+    if (string.IsNullOrEmpty(Message))
+    {
+        Message = "Ocorreu um erro desconhecido.";
+    }
+
+    return View("Error", model: Message);
+}
     }
 }
