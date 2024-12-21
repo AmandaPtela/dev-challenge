@@ -11,7 +11,7 @@ function App() {
         <Routes>
           <Route exact path="/" Component={Home} />
           <Route path="api/domain/:domain" Component={DomainDetails} />
-          <Route exact path="/Error" Component={ErrorPage} />
+          <Route path="/error" Component={ErrorPage} />
         </Routes>
       </BrowserRouter>        
     </div>
