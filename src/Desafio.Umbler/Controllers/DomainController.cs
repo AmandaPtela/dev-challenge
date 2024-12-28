@@ -32,12 +32,12 @@ namespace Desafio.Umbler.Controllers
             if (!results.IsValid)
             {
                 var errorMessage = "";
-                foreach (var failure in results.Errors)
+                foreach (var failure in errors)
                 {
                     errorMessage = "Failed validation. Error: " + failure.ErrorMessage;
-                    Console.WriteLine(errorMessage);
                 }
-                return RedirectToAction("Error", new { message = errorMessage });
+                 Console.WriteLine(errorMessage);
+                return RedirectToAction("Error", "Error", new { message = errorMessage });
             }
             var domain = await _DatabaseRepository.GetDomain(domainName);
 
