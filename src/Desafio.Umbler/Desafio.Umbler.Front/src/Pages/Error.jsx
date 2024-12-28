@@ -1,10 +1,8 @@
-import { useLocation } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import { domainContext } from "../Context/Provider";
 
 export default function Error() {
-  const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    
-    const Message = searchParams.get('Message') || 'Ocorreu um erro';
-    console.log(Message);
-  return (<h1>{Message}</h1>);
+  let { errorDetails } = useContext(domainContext);
+
+  return (<h1>{errorDetails}</h1>);
 }
