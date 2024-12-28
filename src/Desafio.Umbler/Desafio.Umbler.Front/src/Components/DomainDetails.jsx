@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { domainContext } from "../Context/Provider";
 
 
@@ -11,15 +12,16 @@ export default function DomainDetails() {
     let [whoIs, setWhoIs] = useState([]);
     let [whoIsData, setWhoIsData] = useState([]);
     let [loadingToRender, setLoadingToRender] = useState(true);
+    const navigate = useNavigate();
     
     useEffect(() => {
         fetch(`/api/domain/${domainName}`)
             .then(response => response.json())
             .then(data => {
-                setData(data)
-                setWhoIs(Object.entries(data)[4].find((e) => e !== "whoIs").split("\n"));
+                setData(data);
+                //setWhoIs(Object.entries(data)[4].find((e) => e !== "whoIs").split("\n"));
             })
-            .catch(error => console.error("Erro ao buscar dados do domínio :", error));
+            .catch(error => navigate("/Error/Error"));
     }, [domainName]);
     
     function setWhoIsDetails() {
