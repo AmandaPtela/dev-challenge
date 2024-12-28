@@ -28,15 +28,14 @@ namespace Desafio.Umbler.Controllers
             var validation = new DomainValidator();
             var results = validation.Validate(domainName);
             var errors = results.Errors;
+            var errorMessage = "";
 
             if (!results.IsValid)
             {
-                var errorMessage = "";
                 foreach (var failure in errors)
                 {
-                    errorMessage = "Failed validation. Error: " + failure.ErrorMessage;
+                    errorMessage = "Failed validation. Error: " + failure;
                 }
-                 Console.WriteLine(errorMessage);
                 return RedirectToAction("Error", "Error", new { message = errorMessage });
             }
             var domain = await _DatabaseRepository.GetDomain(domainName);
