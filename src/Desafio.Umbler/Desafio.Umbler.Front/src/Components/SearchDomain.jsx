@@ -39,7 +39,7 @@ export default function Search() {
           id="searchInput"
           maxLength={INPUT_MAX_LENGTH}
         />
-        <button type="submit" id="searchButton" onClick={() => searchInfo()}>
+        <button disabled={!valid} type="submit" id="searchButton" onClick={() => searchInfo()}>
           Buscar
         </button>
       </div>
