@@ -56,7 +56,7 @@ namespace Desafio.Umbler
             }
             else
             {
-                app.UseExceptionHandler("/error");
+                app.UseExceptionHandler("/Error/Error");
             }
 
             app.UseRouting();
@@ -71,6 +71,7 @@ namespace Desafio.Umbler
                     name: "searchDomain",
                     pattern: "{controller=Domain}/{action=Get}/{domainName?}");
                 });
+
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
