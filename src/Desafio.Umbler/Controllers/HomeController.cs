@@ -12,14 +12,15 @@ namespace Desafio.Umbler.Controllers
         {
             return View(domain);
         }
-        [HttpGet("error")]
+        [HttpGet("Error/Error")]
         public IActionResult Error([FromQuery] string Message)
         {
-    if (string.IsNullOrEmpty(Message))
+            if (string.IsNullOrEmpty(Message))
             {
                 Message = "Ocorreu um erro desconhecido...";
-            }    
-            return Redirect($"/Error/Error?message={Uri.EscapeDataString(Message)}");
+            }
+            return Json(new { redirectUrl = Message });
+
         }
     }
 }
