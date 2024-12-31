@@ -10,12 +10,15 @@ export default function Search() {
   let [valid, setValid] = useState(true);
 
   const INPUT_MAX_LENGTH = 50;
+  const DOMAIN_MAX_LENGTH = 30;
   const navigate = useNavigate();
 
   function handleValue(value) {
     const regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$/;
     
-    if (!value.length === 0 || !regex.test(value)) {
+    if (!value.length === 0 && !value.length > DOMAIN_MAX_LENGTH || !regex.test(value)) {
+      console.log(value.length);
+      
       return setValid(false);
     };
     setDomain(value);
