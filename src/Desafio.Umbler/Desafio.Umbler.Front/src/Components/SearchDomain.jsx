@@ -11,14 +11,20 @@ export default function Search() {
 
   const INPUT_MAX_LENGTH = 50;
   const DOMAIN_MAX_LENGTH = 30;
+
   const navigate = useNavigate();
+  const baseUrl = "api/domain";
 
   function handleValue(value) {
     const regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$/;
-    
-    if (!value.length === 0 && !value.length > DOMAIN_MAX_LENGTH || !regex.test(value)) {      
+
+    if (
+      (!value.length === 0 && !value.length > DOMAIN_MAX_LENGTH) ||
+      !regex.test(value)
+    ) {
       return setValid(false);
     };
+
     setDomain(value);
     return setValid(true);
   }
@@ -26,7 +32,7 @@ export default function Search() {
   function searchInfo() {
     if (valid) {
       setDomainName(domain);
-      return navigate(`api/domain/${domain}`);
+      return navigate(`${baseUrl}/${domain}`);
     };
   }
 
@@ -39,19 +45,16 @@ export default function Search() {
           id="searchInput"
           maxLength={INPUT_MAX_LENGTH}
         />
-        <button disabled={!valid} type="submit" id="searchButton" onClick={() => searchInfo()}>
+        <button
+          disabled={!valid}
+          type="submit"
+          id="searchButton"
+          onClick={() => searchInfo()}
+        >
           Buscar
         </button>
       </div>
-      <span id="inputInformation">
-        {!valid && "Domínio inválido"}
-      </span>
-        {/* {data ? (
-            <div>
-            <DomainDetails />
-          </div>
-        )
-    : (null)} */}
+      <span id="inputInformation">{!valid && "Domínio inválido"}</span>
     </main>
   );
 }
