@@ -16,9 +16,7 @@ export default function Search() {
   function handleValue(value) {
     const regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$/;
     
-    if (!value.length === 0 && !value.length > DOMAIN_MAX_LENGTH || !regex.test(value)) {
-      console.log(value.length);
-      
+    if (!value.length === 0 && !value.length > DOMAIN_MAX_LENGTH || !regex.test(value)) {      
       return setValid(false);
     };
     setDomain(value);
@@ -30,7 +28,6 @@ export default function Search() {
       setDomainName(domain);
       return navigate(`api/domain/${domain}`);
     };
-    return ;
   }
 
   return (
