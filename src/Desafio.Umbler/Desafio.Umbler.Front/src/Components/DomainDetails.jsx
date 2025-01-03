@@ -4,6 +4,7 @@ import { domainContext } from "../Context/Provider";
 
 import SearchDomain from "../Components/SearchDomain";
 import "../Styles/DomainDetails.css";
+import BackButton from "./BackButton";
 
 export default function DomainDetails() {
   const { domainName, setErrorDetails } = useContext(domainContext);
@@ -47,8 +48,9 @@ export default function DomainDetails() {
 
   return (
     <main id="mainDetailsPage">
-      <SearchDomain />
-      <h1>
+      <BackButton route={"/"} />
+      {/* <SearchDomain />
+ */}      <h1>
         Results for <b>{data.name}</b>:
       </h1>
       <table>
