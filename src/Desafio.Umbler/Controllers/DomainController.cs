@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Desafio.Umbler.ViewModel;
 using Desafio.Umbler.Models;
 using Desafio.Umbler.DatabaseRepo;
@@ -29,41 +28,42 @@ namespace Desafio.Umbler.Controllers
             var results = validation.Validate(domainName);
             var errors = results.Errors;
             var errorMessage = "";
-
-            if (!results.IsValid)
+            
+            if (results.IsValid)
             {
-                foreach (var failure in errors)
+                Console.WriteLine(results.IsValid);
+                var domain = await _DatabaseRepository.GetDomain(domainName);
+
+                if (domain == null)
                 {
-                    errorMessage = "Failed validation. Error: " + failure;
+                    await _DatabaseRepository.AddDomain(domainName);
                 }
-                return RedirectToAction("Error", "Error", new { message = errorMessage });
+
+                if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
+                {
+                    await _DatabaseRepository.VerifyTtl(domainName);
+                }
+
+                var ViewModelReturn = new DomainViewModel
+                {
+                    Name = domain.Name,
+                    Ip = domain.Ip,
+                    WhoIs = domain.WhoIs,
+                    HostedAt = domain.HostedAt,
+
+                };
+
+                await _DatabaseRepository.SaveChangesAsync();
+
+                return Ok(ViewModelReturn);
             }
-            var domain = await _DatabaseRepository.GetDomain(domainName);
-
-            if (domain == null)
+            else {
+            foreach (var failure in errors)
             {
-                await _DatabaseRepository.AddDomain(domainName);
+                errorMessage = "Failed validation. Error: " + failure;
             }
-
-            if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
-            {
-                await _DatabaseRepository.VerifyTtl(domainName);
+            return RedirectToAction("Error", "Error", new { message = errorMessage });
             }
-
-            /*             var WhoIs = domain.WhoIs.split("\n"); */
-
-            var ViewModelReturn = new DomainViewModel
-            {
-                Name = domain.Name,
-                Ip = domain.Ip,
-                WhoIs = domain.WhoIs,
-                HostedAt = domain.HostedAt,
-
-            };
-
-            await _DatabaseRepository.SaveChangesAsync();
-
-            return Ok(ViewModelReturn);
         }
     }
 }
