@@ -8,8 +8,12 @@ namespace Desafio.Umbler.Validator
     {
         public DomainValidator() {
             RuleFor(domainName => domainName)
-            .Matches(@"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$").NotEmpty()
+            .MaximumLength(30).WithMessage("O domínio deve conter no máximo 30 caracteres");
+            RuleFor(domainName => domainName)
+            .MinimumLength(2).WithMessage("O domínio deve conter no mínimo 2 caracteres");
+            RuleFor(domainName => domainName)
+            .Matches(@"^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$")
             .WithMessage("Formato de domínio Inválido ou domínio ausente");
-        }
+        }   
     }
 }
