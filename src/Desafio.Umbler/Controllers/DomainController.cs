@@ -7,6 +7,10 @@ using Desafio.Umbler.Models;
 using Desafio.Umbler.DatabaseRepo;
 using Desafio.Umbler.Validator;
 using FluentValidation;
+using DnsClient;
+using Whois.NET;
+using Microsoft.EntityFrameworkCore;
+using Desafio.Umbler.Models;
 
 namespace Desafio.Umbler.Controllers
 {
@@ -28,15 +32,33 @@ namespace Desafio.Umbler.Controllers
             var results = validation.Validate(domainName);
             var errors = results.Errors;
             var errorMessage = "";
-            
+
             if (results.IsValid)
             {
-                Console.WriteLine(results.IsValid);
                 var domain = await _DatabaseRepository.GetDomain(domainName);
 
                 if (domain == null)
                 {
-                    await _DatabaseRepository.AddDomain(domainName);
+                    var response = await WhoisClient.QueryAsync(domainName);
+
+                    var lookup = new LookupClient();
+                    var result = await lookup.QueryAsync(domainName, QueryType.ANY);
+                    var record = result.Answers.ARecords().FirstOrDefault();
+                    var address = record?.Address;
+                    var ip = address?.ToString();
+
+                    var hostResponse = await WhoisClient.QueryAsync(ip);
+
+                domain = new Domain {
+                    Name = domainName,
+                    Ip = ip,
+                    UpdatedAt = DateTime.Now,
+                    WhoIs = response.Raw,
+                    Ttl = record?.TimeToLive ?? 0,
+                    HostedAt = hostResponse.OrganizationName,
+                };
+
+                    _db.Domains.Add(domain);
                 }
 
                 if (DateTime.Now.Subtract(domain.UpdatedAt).TotalMinutes > domain.Ttl)
@@ -57,12 +79,16 @@ namespace Desafio.Umbler.Controllers
 
                 return Ok(ViewModelReturn);
             }
-            else {
-            foreach (var failure in errors)
+            else
             {
-                errorMessage = "Failed validation. Error: " + failure;
-            }
-            return RedirectToAction("Error", "Error", new { message = errorMessage });
+                foreach (var failure in errors)
+                {
+                    errorMessage = "Failed validation. Error: " + failure;
+                }
+                return RedirectToAction("Error", "Error", new
+                {
+                    message = errorMessage
+                });
             }
         }
     }
