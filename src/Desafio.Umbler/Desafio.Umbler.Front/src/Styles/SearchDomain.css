@@ -17,6 +17,7 @@
     border: solid 0.15rem #808080;
     color: #343F3E;
     font-size: large;
+    outline: none;
     padding-left: 10px;
     width: 75%;
 }
@@ -24,24 +25,6 @@
 #inputInformation {
     color: red;
     font-size: smaller;
-    padding-left: 20px;
-}
-
-#searchButton {
-    background-color: #BFB48F;
-    border-radius: 0.5em;
-    border: none;
-    color: #343F3E;
-    font-size: medium;
-    font-weight: 600;
-    height: 50px;
-    outline: none;
-    width: 100px;
-}
-
-#searchButton:hover {
-    transform: scale(1.1);
-    transition: 0.2s;
 }
 
 a {

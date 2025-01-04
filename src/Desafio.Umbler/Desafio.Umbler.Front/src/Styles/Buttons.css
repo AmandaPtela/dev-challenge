@@ -1,0 +1,20 @@
+#searchButton, #backButton {
+    background-color: #BFB48F;
+    border-radius: 0.5em;
+    border: none;
+    color: #343F3E;
+    font-size: medium;
+    font-weight: 600;
+    height: 50px;
+    outline: none;
+    width: 100px;
+}
+
+#searchButton:disabled  {
+    opacity: 50%;
+}
+
+#backButton:hover {
+    transform: scale(1.1);
+    transition: 0.2s;
+}
