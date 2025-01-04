@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { domainContext } from "../Context/Provider";
 
 import "../Styles/SearchDomain.css";
+import "../Styles/Buttons.css";
 
 export default function Search() {
   let { setDomainName } = useContext(domainContext);
@@ -11,6 +12,7 @@ export default function Search() {
 
   const INPUT_MAX_LENGTH = 50;
   const DOMAIN_MAX_LENGTH = 30;
+  const DOMAIN_MIN_LENGTH = 2;
 
   const navigate = useNavigate();
   const baseUrl = "api/domain";
@@ -19,7 +21,7 @@ export default function Search() {
     const regex = /^(?!-)[A-Za-z0-9-]{1,63}(?<!-)\.(?!-)[A-Za-z0-9-]{2,63}(?<!-)$/;
 
     if (
-      (!value.length === 0 && !value.length > DOMAIN_MAX_LENGTH) ||
+      (!value.length < DOMAIN_MIN_LENGTH || !value.length > DOMAIN_MAX_LENGTH) &&
       !regex.test(value)
     ) {
       return setValid(false);
@@ -46,7 +48,7 @@ export default function Search() {
           maxLength={INPUT_MAX_LENGTH}
         />
         <button
-          disabled={!valid}
+          disabled={!domain}
           type="submit"
           id="searchButton"
           onClick={() => searchInfo()}
