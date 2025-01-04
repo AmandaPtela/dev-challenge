@@ -9,6 +9,8 @@ namespace Desafio.Umbler.Validator
         public DomainValidator()
         {
             RuleFor(domainName => domainName)
+            .NotEmpty().WithMessage("A busca não pode estar vazia");
+            RuleFor(domainName => domainName)
             .MaximumLength(30).WithMessage("O domínio deve conter no máximo 30 caracteres");
             RuleFor(domainName => domainName)
             .MinimumLength(6).WithMessage("O domínio deve conter no mínimo 6 caracteres");
