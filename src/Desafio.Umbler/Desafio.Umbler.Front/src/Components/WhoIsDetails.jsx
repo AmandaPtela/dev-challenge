@@ -41,51 +41,113 @@ export default function WhoIsDetails({ details }) {
   React.useEffect(() => {
     function Detail() {
       setDetails(details);
-    };
+    }
     setTimeout(Detail, 2800);
   }, [details]);
 
   return (
-    <Card
-      style={{
-        width: "70%",
-        minHeight: "10%",
-        backgroundColor: "transparent",
-        flexDirection: "row",
-        overflowY: "scroll"
-      }}
-    >
-      <CardContent>
-        <Typography
-          variant="body2"
-          sx={{
-            color: "#343F3E;",
-            fontSize: "larger",
-            display: "flex",
-            display: "flex",
-            justifyContent: "space-evenly",
-            alignItems: "center"
-          }}
-        >
-          WhoIs info
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </Typography>
-      </CardContent>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+    <>
+      <Card
+        style={{
+          width: "70%",
+          minHeight: "10%",
+          maxHeight: "60%",
+          backgroundColor: "transparent",
+          flexDirection: "row",
+          overflowY: "scroll",
+        }}
+      >
         <CardContent>
-             {WhoIsDetails.whoIs ? WhoIsDetails.whoIs.split("\n").map((key, index) => 
-          <Typography key={index} sx={{ marginBottom: 0.3, textAlign: "left" }}>{ key }</Typography>
-          )
-        : <p>loading...</p>};
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#343F3E;",
+              fontSize: "larger",
+              display: "flex",
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            Domain Informations
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </Typography>
         </CardContent>
-      </Collapse>
-    </Card>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {WhoIsDetails.whoIs ? (
+              WhoIsDetails.whoIs.split("\n").splice(0, 61).map((key, index) => (
+                <Typography
+                  key={index}
+                  sx={{ marginBottom: 0.3, textAlign: "left" }}
+                >
+                  {key}
+                </Typography>
+              ))
+            ) : (
+              <p>loading...</p>
+            )}
+          </CardContent>
+        </Collapse>
+      </Card>
+      <Card
+        style={{
+          width: "70%",
+          minHeight: "10%",
+          maxHeight: "60%",
+          backgroundColor: "transparent",
+          flexDirection: "row",
+          overflowY: "scroll",
+        }}
+      >
+        <CardContent>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "#343F3E;",
+              fontSize: "larger",
+              display: "flex",
+              display: "flex",
+              justifyContent: "space-evenly",
+              alignItems: "center",
+            }}
+          >
+            Registrant Informations
+            <ExpandMore
+              expand={expanded}
+              onClick={handleExpandClick}
+              aria-expanded={expanded}
+              aria-label="show more"
+            >
+              <ExpandMoreIcon />
+            </ExpandMore>
+          </Typography>
+        </CardContent>
+        <Collapse in={expanded} timeout="auto" unmountOnExit>
+          <CardContent>
+            {WhoIsDetails.whoIs ? (
+              WhoIsDetails.whoIs.split("\n").splice(61).map((key, index) => (
+                <Typography
+                  key={index}
+                  sx={{ marginBottom: 0.3, textAlign: "left" }}
+                >
+                  {key}
+                </Typography>
+              ))
+            ) : (
+              <p>loading...</p>
+            )}
+            ;
+          </CardContent>
+        </Collapse>
+      </Card>
+    </>
   );
 }
