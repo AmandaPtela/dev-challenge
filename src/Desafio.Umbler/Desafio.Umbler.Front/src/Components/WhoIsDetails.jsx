@@ -45,6 +45,7 @@ export default function WhoIsDetails({ details }) {
         minHeight: "10%",
         backgroundColor: "transparent",
         flexDirection: "row",
+        overflowY: "scroll"
       }}
     >
       <CardContent>
@@ -72,7 +73,9 @@ export default function WhoIsDetails({ details }) {
       </CardContent>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography sx={{ marginBottom: 2 }}>{ details }</Typography>
+          {details.map((key, index) => 
+          <Typography key={index} sx={{ marginBottom: 0.3, textAlign: "left" }}>{ key }</Typography>
+          )}
         </CardContent>
       </Collapse>
     </Card>
