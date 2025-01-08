@@ -4,6 +4,7 @@ import { domainContext } from "../Context/Provider";
 
 import "../Styles/DomainDetails.css";
 import BackButton from "./BackButton";
+import WhoIsDetails from "./WhoIsDetails";
 
 export default function DomainDetails() {
   const { domainName, setErrorDetails } = useContext(domainContext);
@@ -41,25 +42,9 @@ export default function DomainDetails() {
             <td className="key">IP:</td>
             <td className="value">{domainData.ip}</td>
           </tr>
-          <tr>
-            <td className="key">WhoIs:</td>
-            <td className="value">asa</td>
-          </tr>
         </tbody>
       </table>
-      <p>WhoIs: </p>
-      {loadingToRender ? (
-        <p>Loading...</p>
-      ) : (
-        <table>
-          <tbody>
-            <tr>
-              <td className="key">Domain:</td>
-              <td className="value">{whoIsData.Domain_Name}</td>
-            </tr>
-          </tbody>
-        </table>
-      )}
+      <WhoIsDetails />
     </main>
   );
 }
