@@ -31,7 +31,7 @@ const ExpandMore = styled((props) => {
   ],
 }));
 
-export default function WhoIsDetails({details}) {
+export default function WhoIsDetails({ details }) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -72,7 +72,7 @@ export default function WhoIsDetails({details}) {
       </CardContent>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography sx={{ marginBottom: 2 }}> {details}</Typography>
+          <Typography sx={{ marginBottom: 2 }}>{ details }</Typography>
         </CardContent>
       </Collapse>
     </Card>

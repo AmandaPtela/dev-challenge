@@ -44,7 +44,7 @@ export default function DomainDetails() {
           </tr>
         </tbody>
       </table>
-      <WhoIsDetails />
+      <WhoIsDetails details={domainData.whoIs}/>
     </main>
   );
 }
