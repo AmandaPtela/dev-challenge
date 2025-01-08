@@ -11,7 +11,7 @@ export default function DomainDetails() {
   const navigate = useNavigate();
 
   useEffect( () => {
-    const fetcha = async () => await fetch(`/api/domain/${domainName}`)
+    const fetchDomainData = async () => await fetch(`/api/domain/${domainName}`)
         .then((response) => response.json())
         .then((data) => {
           setData(data);
@@ -21,7 +21,7 @@ export default function DomainDetails() {
           }
         });
 
-    fetcha();
+    fetchDomainData();
   }, [domainName]);
 
   return (
