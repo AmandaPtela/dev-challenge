@@ -119,7 +119,7 @@ export default function WhoIsDetails({ details }) {
               alignItems: "center",
             }}
           >
-            Registrant Informations
+            Warnings
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
