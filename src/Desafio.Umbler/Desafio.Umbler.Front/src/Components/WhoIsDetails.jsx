@@ -33,10 +33,17 @@ const ExpandMore = styled((props) => {
 
 export default function WhoIsDetails({ details }) {
   const [expanded, setExpanded] = React.useState(false);
+  const [WhoIsDetails, setDetails] = React.useState([]);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  React.useEffect(() => {
+    function Detail() {
+      setDetails(details);
+    };
+    setTimeout(Detail, 2800);
+  }, [details]);
 
   return (
     <Card
@@ -73,9 +80,10 @@ export default function WhoIsDetails({ details }) {
       </CardContent>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          {details.map((key, index) => 
+             {WhoIsDetails.whoIs ? WhoIsDetails.whoIs.split("\n").map((key, index) => 
           <Typography key={index} sx={{ marginBottom: 0.3, textAlign: "left" }}>{ key }</Typography>
-          )}
+          )
+        : <p>loading...</p>};
         </CardContent>
       </Collapse>
     </Card>
