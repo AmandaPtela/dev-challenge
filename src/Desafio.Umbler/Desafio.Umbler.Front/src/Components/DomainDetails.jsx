@@ -44,7 +44,7 @@ export default function DomainDetails() {
           </tr>
         </tbody>
       </table>
-      <WhoIsDetails details={domainData.whoIs}/>
+      <WhoIsDetails details={domainData.whoIs.split("\n")}/>
     </main>
   );
 }
