@@ -7,7 +7,7 @@ import BackButton from "./BackButton";
 
 export default function DomainDetails() {
   const { domainName, setErrorDetails } = useContext(domainContext);
-  let [data, setData] = useState([]);
+  let [domainData, setData] = useState([]);
   const navigate = useNavigate();
 
   useEffect( () => {
@@ -29,17 +29,17 @@ export default function DomainDetails() {
       <BackButton route={"/"} />
       {/* <SearchDomain />
  */}      <h1>
-        Results for <b>{data.name}</b>:
+        Results for <b>{domainData.name}</b>:
       </h1>
       <table>
         <tbody>
           <tr>
             <td className="key">Domain:</td>
-            <td className="value">{data.name}</td>
+            <td className="value">{domainData.name}</td>
           </tr>
           <tr>
             <td className="key">IP:</td>
-            <td className="value">{data.ip}</td>
+            <td className="value">{domainData.ip}</td>
           </tr>
           <tr>
             <td className="key">WhoIs:</td>
