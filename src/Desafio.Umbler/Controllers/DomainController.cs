@@ -70,7 +70,7 @@ namespace Desafio.Umbler.Controllers
                 {
                     Name = domain.Name,
                     Ip = domain.Ip,
-                    WhoIs = domain.WhoIs,
+                    WhoIs = domain.WhoIs.Split("\n"),
                     HostedAt = domain.HostedAt,
 
                 };
