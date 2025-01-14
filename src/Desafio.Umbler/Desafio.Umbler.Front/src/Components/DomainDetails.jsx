@@ -10,19 +10,21 @@ export default function DomainDetails() {
   const { domainName, setErrorDetails } = useContext(domainContext);
   let [domainData, setData] = useState([]);
   const navigate = useNavigate();
-
+  
   useEffect( () => {
     const fetchDomainData = async () => await fetch(`/api/domain/${domainName}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setData(data);
-          if(data.redirectUrl) {
-            setErrorDetails(data.redirectUrl);
-            return navigate("/Error/Error");
-          }
-        });
-
+    .then((response) => response.json())
+    .then((data) => {
+      setData(data);
+      if(data.redirectUrl) {
+        setErrorDetails(data.redirectUrl);
+        return navigate("/Error/Error");
+      }
+    });
+    
     fetchDomainData();
+    //console.log(domainData);
+    
   }, [domainName]);
 
   return (
@@ -30,7 +32,7 @@ export default function DomainDetails() {
       <BackButton route={"/"} />
       {/* <SearchDomain />
  */}      <h1>
-        Results for <b>{domainData.name}</b>:
+        Results for <b>{domainName}</b>:
       </h1>
       <table>
         <tbody>
