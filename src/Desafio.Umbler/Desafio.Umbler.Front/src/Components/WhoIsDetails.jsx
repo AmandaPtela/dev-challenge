@@ -32,15 +32,14 @@ const ExpandMore = styled((props) => {
   ],
 }));
 
-export default function WhoIsDetails({ details }) {
+export default function WhoIsDetails() {
   const [expandedInfo, setExpandedInfo] = useState(false);
   const [expandedWarnings, setExpandedInfoWarnings] = useState(false);
 
-  const {whoIsDetails, setWhoIsDetails} = useContext(domainContext);
+  const {domainData} = useContext(domainContext);
 
   const handleExpandClick = (target) => {
-    console.log(target);
-    
+    console.log(domainData);
     if (target === "Informations") {
       setExpandedInfo(!expandedInfo);
     }
@@ -51,15 +50,7 @@ export default function WhoIsDetails({ details }) {
       setExpandedInfoWarnings(false);
       setExpandedInfo(false);
     }
-    
-    
   };
-  useEffect(() => {
-    function Detail() {
-      setWhoIsDetails(details);
-    }
-    setTimeout(Detail, 2800);
-  }, [details]);
 
   return (
     <>
@@ -99,8 +90,8 @@ export default function WhoIsDetails({ details }) {
         </CardContent>
         <Collapse in={expandedInfo} timeout="auto">
           <CardContent>
-            {whoIsDetails.whoIs ? (
-              whoIsDetails.whoIs.splice(0, 61).map((key, index) => (
+            {domainData.whoIs ? (
+              domainData.whoIs.split("\n").splice(0, 20).map((key, index) => (
                 <Typography
                   key={index}
                   sx={{ marginBottom: 0.3, textAlign: "left" }}
@@ -150,8 +141,8 @@ export default function WhoIsDetails({ details }) {
         </CardContent>
         <Collapse in={expandedWarnings} timeout="auto">
           <CardContent>
-            {whoIsDetails.whoIs ? (
-              whoIsDetails.whoIs.splice(61).map((key, index) => (
+            {domainData.whoIs ? (
+              domainData.whoIs.split("\n").splice(60).map((key, index) => (
                 <Typography
                   key={index}
                   sx={{ marginBottom: 0.3, textAlign: "left" }}
