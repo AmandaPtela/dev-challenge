@@ -7,8 +7,7 @@ import BackButton from "./BackButton";
 import WhoIsDetails from "./WhoIsDetails";
 
 export default function DomainDetails() {
-  const { domainName, setErrorDetails } = useContext(domainContext);
-  let [domainData, setData] = useState([]);
+  const { domainName, domainData, setData, setErrorDetails, whoIsDetails, setWhoIsDetails } = useContext(domainContext);
   const navigate = useNavigate();
   
   useEffect( () => {
@@ -23,7 +22,6 @@ export default function DomainDetails() {
     });
     
     fetchDomainData();
-    //console.log(domainData);
     
   }, [domainName]);
 
@@ -46,7 +44,7 @@ export default function DomainDetails() {
           </tr>
         </tbody>
       </table>
-      <WhoIsDetails details={domainData}/>
+      <WhoIsDetails/>
     </main>
   );
 }
