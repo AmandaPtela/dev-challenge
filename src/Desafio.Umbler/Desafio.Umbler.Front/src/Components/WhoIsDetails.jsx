@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -6,6 +6,7 @@ import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { domainContext } from "../Context/Provider";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -32,15 +33,30 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function WhoIsDetails({ details }) {
-  const [expanded, setExpanded] = React.useState(false);
-  const [WhoIsDetails, setDetails] = React.useState([]);
+  const [expandedInfo, setExpandedInfo] = useState(false);
+  const [expandedWarnings, setExpandedInfoWarnings] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
+  const {whoIsDetails, setWhoIsDetails} = useContext(domainContext);
+
+  const handleExpandClick = (target) => {
+    console.log(target);
+    
+    if (target === "Informations") {
+      setExpandedInfo(!expandedInfo);
+    }
+    if(target === "Warnings"){
+      setExpandedInfoWarnings(!expandedWarnings);
+    }
+    if(target === "none"){
+      setExpandedInfoWarnings(false);
+      setExpandedInfo(false);
+    }
+    
+    
   };
-  React.useEffect(() => {
+  useEffect(() => {
     function Detail() {
-      setDetails(details);
+      setWhoIsDetails(details);
     }
     setTimeout(Detail, 2800);
   }, [details]);
@@ -48,7 +64,7 @@ export default function WhoIsDetails({ details }) {
   return (
     <>
       <Card
-        style={{
+        sx={{
           width: "70%",
           minHeight: "10%",
           maxHeight: "60%",
@@ -71,19 +87,20 @@ export default function WhoIsDetails({ details }) {
           >
             Domain Informations
             <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
+              name="Informations"
+              expand={expandedInfo}
+              onClick={({target}) => handleExpandClick(target.parentElement.name)}
+              aria-expanded={expandedInfo}
+              aria-label="show more info"
             >
               <ExpandMoreIcon />
             </ExpandMore>
           </Typography>
         </CardContent>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expandedInfo} timeout="auto">
           <CardContent>
-            {WhoIsDetails.whoIs ? (
-              WhoIsDetails.whoIs.split("\n").splice(0, 61).map((key, index) => (
+            {whoIsDetails.whoIs ? (
+              whoIsDetails.whoIs.splice(0, 61).map((key, index) => (
                 <Typography
                   key={index}
                   sx={{ marginBottom: 0.3, textAlign: "left" }}
@@ -121,19 +138,20 @@ export default function WhoIsDetails({ details }) {
           >
             Warnings
             <ExpandMore
-              expand={expanded}
-              onClick={handleExpandClick}
-              aria-expanded={expanded}
-              aria-label="show more"
+              name="Warnings"
+              expand={expandedWarnings}
+              onClick={({target}) => handleExpandClick(target.parentElement.name)}
+              aria-expanded={expandedWarnings}
+              aria-label="show more warnings"
             >
               <ExpandMoreIcon />
             </ExpandMore>
           </Typography>
         </CardContent>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expandedWarnings} timeout="auto">
           <CardContent>
-            {WhoIsDetails.whoIs ? (
-              WhoIsDetails.whoIs.split("\n").splice(61).map((key, index) => (
+            {whoIsDetails.whoIs ? (
+              whoIsDetails.whoIs.splice(61).map((key, index) => (
                 <Typography
                   key={index}
                   sx={{ marginBottom: 0.3, textAlign: "left" }}
@@ -144,7 +162,6 @@ export default function WhoIsDetails({ details }) {
             ) : (
               <p>loading...</p>
             )}
-            ;
           </CardContent>
         </Collapse>
       </Card>
