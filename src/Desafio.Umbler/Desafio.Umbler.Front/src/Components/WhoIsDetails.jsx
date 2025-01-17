@@ -37,9 +37,12 @@ export default function WhoIsDetails() {
   const [expandedWarnings, setExpandedInfoWarnings] = useState(false);
 
   const {domainData} = useContext(domainContext);
+  let whoIsDetails = domainData["whoIs"].split("\n");
 
   const handleExpandClick = (target) => {
-    console.log(domainData);
+
+    console.log(whoIsDetails);
+    
     if (target === "Informations") {
       setExpandedInfo(!expandedInfo);
     }
@@ -51,6 +54,7 @@ export default function WhoIsDetails() {
       setExpandedInfo(false);
     }
   };
+
 
   return (
     <>
@@ -90,8 +94,8 @@ export default function WhoIsDetails() {
         </CardContent>
         <Collapse in={expandedInfo} timeout="auto">
           <CardContent>
-            {domainData.whoIs ? (
-              domainData.whoIs.split("\n").splice(0, 20).map((key, index) => (
+            {whoIsDetails ? (
+              whoIsDetails.map((key, index) => (
                 <Typography
                   key={index}
                   sx={{ marginBottom: 0.3, textAlign: "left" }}
@@ -141,8 +145,8 @@ export default function WhoIsDetails() {
         </CardContent>
         <Collapse in={expandedWarnings} timeout="auto">
           <CardContent>
-            {domainData.whoIs ? (
-              domainData.whoIs.split("\n").splice(60).map((key, index) => (
+            {whoIsDetails ? (
+              whoIsDetails.splice(60).map((key, index) => (
                 <Typography
                   key={index}
                   sx={{ marginBottom: 0.3, textAlign: "left" }}
