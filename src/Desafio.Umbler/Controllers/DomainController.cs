@@ -10,7 +10,6 @@ using FluentValidation;
 using DnsClient;
 using Whois.NET;
 using Microsoft.EntityFrameworkCore;
-using Desafio.Umbler.Models;
 
 namespace Desafio.Umbler.Controllers
 {
@@ -42,7 +41,7 @@ namespace Desafio.Umbler.Controllers
                     var response = await WhoisClient.QueryAsync(domainName);
 
                     var lookup = new LookupClient();
-                    var result = await lookup.QueryAsync(domainName, QueryType.ANY);
+                    var result = await lookup.QueryAsync(domainName, QueryType.NS);
                     var record = result.Answers.ARecords().FirstOrDefault();
                     var address = record?.Address;
                     var ip = address?.ToString();
@@ -53,7 +52,7 @@ namespace Desafio.Umbler.Controllers
                     Name = domainName,
                     Ip = ip,
                     UpdatedAt = DateTime.Now,
-                    WhoIs = response.Raw,
+                    WhoIs = response,
                     Ttl = record?.TimeToLive ?? 0,
                     HostedAt = hostResponse.OrganizationName,
                 };

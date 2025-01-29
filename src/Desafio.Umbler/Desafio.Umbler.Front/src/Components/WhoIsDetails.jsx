@@ -38,11 +38,13 @@ export default function WhoIsDetails() {
 
   const { domainData, whoIsDetails, setWhoIsDetails } =
     useContext(domainContext);
-
-    setTimeout(() => setWhoIsDetails(domainData.whoIs.split("\n")), 5000);
   
   const handleExpandClick = (target) => {
     console.log(domainData);
+    
+
+    setWhoIsDetails(domainData.whoIs.split("\n"));
+
     if (target === "Informations") {
       setExpandedInfo(!expandedInfo);
     }
@@ -149,7 +151,7 @@ export default function WhoIsDetails() {
         <Collapse in={expandedWarnings} timeout="auto">
           <CardContent>
             {whoIsDetails ? (
-              whoIsDetails.splice(60).map((key, index) => (
+              whoIsDetails.map((key, index) => (
                 <Typography
                   key={index}
                   sx={{ marginBottom: 0.3, textAlign: "left" }}
