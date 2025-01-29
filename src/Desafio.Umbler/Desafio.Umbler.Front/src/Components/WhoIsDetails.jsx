@@ -36,25 +36,24 @@ export default function WhoIsDetails() {
   const [expandedInfo, setExpandedInfo] = useState(false);
   const [expandedWarnings, setExpandedInfoWarnings] = useState(false);
 
-  const {domainData} = useContext(domainContext);
-  let whoIsDetails = domainData["whoIs"].split("\n");
+  const { domainData, whoIsDetails, setWhoIsDetails } =
+    useContext(domainContext);
 
+    setTimeout(() => setWhoIsDetails(domainData.whoIs.split("\n")), 5000);
+  
   const handleExpandClick = (target) => {
-
-    console.log(whoIsDetails);
-    
+    console.log(domainData);
     if (target === "Informations") {
       setExpandedInfo(!expandedInfo);
     }
-    if(target === "Warnings"){
+    if (target === "Warnings") {
       setExpandedInfoWarnings(!expandedWarnings);
     }
-    if(target === "none"){
+    if (target === "none") {
       setExpandedInfoWarnings(false);
       setExpandedInfo(false);
     }
   };
-
 
   return (
     <>
@@ -84,7 +83,9 @@ export default function WhoIsDetails() {
             <ExpandMore
               name="Informations"
               expand={expandedInfo}
-              onClick={({target}) => handleExpandClick(target.parentElement.name)}
+              onClick={({ target }) =>
+                handleExpandClick(target.parentElement.name)
+              }
               aria-expanded={expandedInfo}
               aria-label="show more info"
             >
@@ -135,7 +136,9 @@ export default function WhoIsDetails() {
             <ExpandMore
               name="Warnings"
               expand={expandedWarnings}
-              onClick={({target}) => handleExpandClick(target.parentElement.name)}
+              onClick={({ target }) =>
+                handleExpandClick(target.parentElement.name)
+              }
               aria-expanded={expandedWarnings}
               aria-label="show more warnings"
             >

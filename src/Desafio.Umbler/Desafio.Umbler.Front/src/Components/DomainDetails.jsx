@@ -7,10 +7,10 @@ import BackButton from "./BackButton";
 import WhoIsDetails from "./WhoIsDetails";
 
 export default function DomainDetails() {
-  const { domainName, domainData, setData, setErrorDetails, whoIsDetails, setWhoIsDetails } = useContext(domainContext);
+  const { domainName, domainData, setData, setErrorDetails } = useContext(domainContext);
   const navigate = useNavigate();
   
-  useEffect( () => {
+  useEffect(() => {
     const fetchDomainData = async () => await fetch(`/api/domain/${domainName}`)
     .then((response) => response.json())
     .then((data) => {
