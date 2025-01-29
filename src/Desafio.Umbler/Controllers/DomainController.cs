@@ -10,7 +10,6 @@ using FluentValidation;
 using DnsClient;
 using Whois.NET;
 using Microsoft.EntityFrameworkCore;
-using Desafio.Umbler.Models;
 
 namespace Desafio.Umbler.Controllers
 {
